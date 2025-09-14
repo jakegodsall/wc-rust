@@ -7,8 +7,12 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
     Ok(content)
 }
 
+fn print_output(value: usize, file_name: &str) {
+    println!("{} {}", value, file_name)
+}
+
 fn main() -> Result<(), std::io::Error> {
     let content = read_file("data/test.txt")?;
-    println!("{}", content);
+    print_output(content.len(), "data/test.txt");
     Ok(())
 }
