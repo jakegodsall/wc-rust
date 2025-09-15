@@ -14,8 +14,9 @@ fn count_bytes(content: &str) -> usize {
 }
 
 fn count_words(content: &str) -> usize {
-  let words: Vec<String> = content.split_whitespace().collect();
-  words.len();
+  let words: Vec<&str> = content.split_whitespace().collect();
+  words.len()
+}
 
 fn count_lines(content: &str) -> usize {
   todo!();
