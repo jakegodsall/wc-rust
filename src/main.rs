@@ -19,7 +19,7 @@ fn count_words(content: &str) -> usize {
 }
 
 fn count_lines(content: &str) -> usize {
-  todo!();
+  content.lines().count()
 }
 
 fn count_chars(content: &str) -> usize {
@@ -42,9 +42,10 @@ fn main() -> Result<(), std::io::Error> {
         "-m" => run_mode = RunMode::Chars,
         str => file_name = Some(str.to_string())
     }
+    i += 1;
   }
 
-  let mut count: usize;
+  let count: usize;
   match run_mode {
     RunMode::Bytes => count = count_bytes(&content),
     RunMode::Words => count = count_words(&content),
