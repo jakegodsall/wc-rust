@@ -23,7 +23,7 @@ fn count_lines(content: &str) -> usize {
 }
 
 fn count_chars(content: &str) -> usize {
-  todo!();
+  content.chars().collect::<Vec<_>>().len()
 }
 
 fn main() -> Result<(), std::io::Error> {
