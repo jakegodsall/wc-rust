@@ -26,6 +26,14 @@ fn main() -> Result<(), std::io::Error> {
     }
   }
 
+  match run_mode {
+    RunMode::Bytes => count_bytes(),
+    RunMode::Words => count_words(),
+    RunMode::Lines => count_lines(),
+    RunMode::Chars => count_chars(),
+    _ =>  Ok(()),
+  }
+
   println!("{}", file_name.unwrap());
   Ok(())
 }
