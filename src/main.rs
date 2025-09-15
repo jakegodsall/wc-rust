@@ -9,19 +9,19 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
 
 enum RunMode { All, Bytes, Words, Lines, Chars }
 
-fn count_bytes() -> usize {
+fn count_bytes(content: &str) -> usize {
+  content.as_bytes().len()
+}
+
+fn count_words(content: &str) -> usize {
+  let words: Vec<String> = content.split_whitespace().collect();
+  words.len();
+
+fn count_lines(content: &str) -> usize {
   todo!();
 }
 
-fn count_words() -> usize {
-  todo!();
-}
-
-fn count_lines() -> usize {
-  todo!();
-}
-
-fn count_chars() -> usize {
+fn count_chars(content: &str) -> usize {
   todo!();
 }
 
@@ -30,6 +30,7 @@ fn main() -> Result<(), std::io::Error> {
 
   let mut run_mode: RunMode = RunMode::All;
   let mut file_name: Option<String> = None;
+  let content = read_file(file_name.as_deref().unwrap())?;
 
   let mut i: usize = 1;
   while i < args.len() {
@@ -44,10 +45,10 @@ fn main() -> Result<(), std::io::Error> {
 
   let mut count: usize;
   match run_mode {
-    RunMode::Bytes => count = count_bytes(),
-    RunMode::Words => count = count_words(),
-    RunMode::Lines => count = count_lines(),
-    RunMode::Chars => count = count_chars(),
+    RunMode::Bytes => count = count_bytes(&content),
+    RunMode::Words => count = count_words(&content),
+    RunMode::Lines => count = count_lines(&content),
+    RunMode::Chars => count = count_chars(&content),
     _ =>  count = 0,
   }
 
