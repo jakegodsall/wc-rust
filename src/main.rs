@@ -9,6 +9,22 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
 
 enum RunMode { All, Bytes, Words, Lines, Chars }
 
+fn count_bytes() -> usize {
+  todo!();
+}
+
+fn count_words() -> usize {
+  todo!();
+}
+
+fn count_lines() -> usize {
+  todo!();
+}
+
+fn count_chars() -> usize {
+  todo!();
+}
+
 fn main() -> Result<(), std::io::Error> {
   let args: Vec<String> = std::env::args().collect();
 
@@ -26,14 +42,15 @@ fn main() -> Result<(), std::io::Error> {
     }
   }
 
+  let mut count: usize;
   match run_mode {
-    RunMode::Bytes => count_bytes(),
-    RunMode::Words => count_words(),
-    RunMode::Lines => count_lines(),
-    RunMode::Chars => count_chars(),
-    _ =>  Ok(()),
+    RunMode::Bytes => count = count_bytes(),
+    RunMode::Words => count = count_words(),
+    RunMode::Lines => count = count_lines(),
+    RunMode::Chars => count = count_chars(),
+    _ =>  count = 0,
   }
 
-  println!("{}", file_name.unwrap());
+  println!("{} {}", count, file_name.unwrap());
   Ok(())
 }
