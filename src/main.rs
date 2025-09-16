@@ -1,4 +1,5 @@
 use std::io::Read;
+use wc_rust::{ count_words, count_bytes, count_lines, count_chars };
 
 fn read_file(path: &str) -> Result<String, std::io::Error> {
     let mut file = std::fs::File::open(path)?;
@@ -8,23 +9,6 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
 }
 
 enum RunMode { All, Bytes, Words, Lines, Chars }
-
-fn count_bytes(content: &str) -> usize {
-  content.as_bytes().len()
-}
-
-fn count_words(content: &str) -> usize {
-  let words: Vec<&str> = content.split_whitespace().collect();
-  words.len()
-}
-
-fn count_lines(content: &str) -> usize {
-  content.lines().count()
-}
-
-fn count_chars(content: &str) -> usize {
-  content.chars().collect::<Vec<_>>().len()
-}
 
 fn main() -> Result<(), std::io::Error> {
   let args: Vec<String> = std::env::args().collect();
