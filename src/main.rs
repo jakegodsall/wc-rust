@@ -1,5 +1,5 @@
 use std::io::Read;
-use wc_rust::{ count_words, count_bytes, count_lines, count_chars };
+use wc_rust::counts::{ count_words, count_bytes, count_lines, count_chars };
 
 fn read_file(path: &str) -> Result<String, std::io::Error> {
     let mut file = std::fs::File::open(path)?;
