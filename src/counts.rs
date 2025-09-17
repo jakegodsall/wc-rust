@@ -63,7 +63,7 @@ pub fn count_chars(content: &str) -> usize {
 /// 
 /// ```
 /// let content = "hello, world";
-/// let output: String = wc::rust::counts::output_all(content);
+/// let output: String = wc_rust::counts::output_all(content);
 /// 
 /// assert_eq!(String::from("1 2 12"), output);
 /// ```
