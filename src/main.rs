@@ -1,10 +1,11 @@
-use std::io::Read;
+use std::io::{ Read, BufReader };
 use wc_rust::counts::{ count_words, count_bytes, count_lines, count_chars };
 
 fn read_file(path: &str) -> Result<String, std::io::Error> {
-    let mut file = std::fs::File::open(path)?;
+    let file: std::fs::File = std::fs::File::open(path)?;
+    let mut buf_reader = BufReader::new(file);
     let mut content = String::new();
-    file.read_to_string(&mut content)?;
+    buf_reader.read_to_string(&mut content)?;
     Ok(content)
 }
 
@@ -27,7 +28,7 @@ fn main() -> Result<(), std::io::Error> {
     }
     i += 1;
   }
-  
+
   let content = read_file(file_name.as_deref().unwrap())?;
 
   let count: usize;
