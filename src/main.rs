@@ -1,5 +1,5 @@
 use std::io::{ Read, BufReader };
-use wc_rust::counts::{ count_words, count_bytes, count_lines, count_chars };
+use wc_rust::counts::{ count_words, count_bytes, count_lines, count_chars, output_all };
 
 fn read_file(path: &str) -> Result<String, std::io::Error> {
     let file: std::fs::File = std::fs::File::open(path)?;
@@ -18,21 +18,33 @@ fn main() -> Result<(), std::io::Error> {
   let mut file_name: Option<String> = None;
   
   let mut i: usize = 1;
-  while i < args.len() {
-    match args[i].as_str() {
-      "-c" => run_mode = RunMode::Bytes,
-      "-w" => run_mode = RunMode::Words,
-      "-l" => run_mode = RunMode::Lines,
-      "-m" => run_mode = RunMode::Chars,
-      str => file_name = Some(str.to_string())
+
+  if args.len() > 2 {
+    while i < args.len() {
+      match args[i].as_str() {
+        "-c" => run_mode = RunMode::Bytes,
+        "-w" => run_mode = RunMode::Words,
+        "-l" => run_mode = RunMode::Lines,
+        "-m" => run_mode = RunMode::Chars,
+        str => file_name = Some(str.to_string())
+      }
+      i += 1;
     }
-    i += 1;
+  } else {
+    match args[1].as_str() {
+      str => {
+        run_mode = RunMode::All;
+        file_name = Some(str.to_string());
+      }
+    }
   }
+  
 
   let content = read_file(file_name.as_deref().unwrap())?;
 
   let count: usize;
   match run_mode {
+    RunMode::All => output_all(&content),
     RunMode::Bytes => count = count_bytes(&content),
     RunMode::Words => count = count_words(&content),
     RunMode::Lines => count = count_lines(&content),
