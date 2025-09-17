@@ -42,16 +42,16 @@ fn main() -> Result<(), std::io::Error> {
 
   let content = read_file(file_name.as_deref().unwrap())?;
 
-  let count: usize;
+  let value: String;
   match run_mode {
-    RunMode::All => output_all(&content),
-    RunMode::Bytes => count = count_bytes(&content),
-    RunMode::Words => count = count_words(&content),
-    RunMode::Lines => count = count_lines(&content),
-    RunMode::Chars => count = count_chars(&content),
-    _ =>  count = 0,
+    RunMode::All => value = output_all(&content),
+    RunMode::Bytes => value = count_bytes(&content).to_string(),
+    RunMode::Words => value = count_words(&content).to_string(),
+    RunMode::Lines => value = count_lines(&content).to_string(),
+    RunMode::Chars => value = count_chars(&content).to_string(),
+    _ =>  value = String::from("0"),
   }
 
-  println!("{} {}", count, file_name.unwrap());
+  println!("{} {}", value, file_name.unwrap());
   Ok(())
 }

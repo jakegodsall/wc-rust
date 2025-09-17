@@ -1,3 +1,5 @@
+use std::error::Error;
+
 /// Count the number of words in a string slice.
 /// 
 /// # Example
@@ -53,4 +55,22 @@ pub fn count_lines(content: &str) -> usize {
 /// ```
 pub fn count_chars(content: &str) -> usize {
   content.chars().collect::<Vec<_>>().len()
+}
+
+/// Output line, word, and byte count as a string.
+/// 
+/// # Example
+/// 
+/// ```
+/// let content = "hello, world";
+/// let output: String = wc::rust::counts::output_all(content);
+/// 
+/// assert_eq!(String::from("1 2 12"), output);
+/// ```
+pub fn output_all(content: &str) -> String {
+  let line_count = count_lines(&content);
+  let word_count = count_words(&content);
+  let byte_count = count_bytes(&content);
+
+  format!("{} {} {}", line_count, word_count, byte_count)
 }
