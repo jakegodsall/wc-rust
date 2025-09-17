@@ -1,5 +1,3 @@
-use std::error::Error;
-
 /// Count the number of words in a string slice.
 /// 
 /// # Example

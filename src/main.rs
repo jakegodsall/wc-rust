@@ -49,7 +49,6 @@ fn main() -> Result<(), std::io::Error> {
     RunMode::Words => value = count_words(&content).to_string(),
     RunMode::Lines => value = count_lines(&content).to_string(),
     RunMode::Chars => value = count_chars(&content).to_string(),
-    _ =>  value = String::from("0"),
   }
 
   println!("{} {}", value, file_name.unwrap());
