@@ -5,7 +5,6 @@ fn read_stdin() -> Result<String, std::io::Error> {
   let mut content = String::new();
   std::io::stdin()
     .read_line(&mut content)?;
-
   Ok(content)
 }
 
@@ -20,35 +19,30 @@ fn read_file(path: &str) -> Result<String, std::io::Error> {
 enum RunMode { All, Bytes, Words, Lines, Chars }
 
 fn main() -> Result<(), std::io::Error> {
-  let args: Vec<String> = std::env::args().collect();
 
   let mut run_mode: RunMode = RunMode::All;
   let mut file_name: Option<String> = None;
   
-  let mut i: usize = 1;
-
-  if args.len() > 2 {
-    while i < args.len() {
-      match args[i].as_str() {
-        "-c" => run_mode = RunMode::Bytes,
-        "-w" => run_mode = RunMode::Words,
-        "-l" => run_mode = RunMode::Lines,
-        "-m" => run_mode = RunMode::Chars,
-        str => file_name = Some(str.to_string())
+  for arg in std::env::args().skip(1) { // skip command name
+    match arg.as_str() {
+      "-c" => run_mode = RunMode::Bytes,
+      "-w" => run_mode = RunMode::Words,
+      "-l" => run_mode = RunMode::Lines,
+      "-m" => run_mode = RunMode::Chars,
+      _ if arg.starts_with("-") => {
+        println!("Unknown option: {}", arg);
+        std::process::exit(1);
       }
-      i += 1;
-    }
-  } else {
-    match args[1].as_str() {
-      str => {
-        run_mode = RunMode::All;
-        file_name = Some(str.to_string());
+      _ => {
+        file_name = Some(arg);
       }
     }
   }
-  
 
-  let content = read_file(file_name.as_deref().unwrap())?;
+  let content = match file_name.as_deref() {
+    Some(path) => read_file(path)?,
+    None => read_stdin()?,
+  };
 
   let value: String;
   match run_mode {
