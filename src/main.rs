@@ -1,20 +1,5 @@
-use std::io::{ Read, BufReader };
 use wc_rust::counts::{ count_words, count_bytes, count_lines, count_chars, output_all };
-
-fn read_stdin() -> Result<String, std::io::Error> {
-  let mut content = String::new();
-  std::io::stdin()
-    .read_line(&mut content)?;
-  Ok(content)
-}
-
-fn read_file(path: &str) -> Result<String, std::io::Error> {
-    let file: std::fs::File = std::fs::File::open(path)?;
-    let mut buf_reader = BufReader::new(file);
-    let mut content = String::new();
-    buf_reader.read_to_string(&mut content)?;
-    Ok(content)
-}
+use wc_rust::read::{ read_file, read_stdin };
 
 enum RunMode { All, Bytes, Words, Lines, Chars }
 
