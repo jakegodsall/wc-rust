@@ -29,13 +29,12 @@ fn main() -> Result<(), std::io::Error> {
     None => read_stdin()?,
   };
 
-  let value: String;
-  match run_mode {
-    RunMode::All => value = output_all(&content),
-    RunMode::Bytes => value = count_bytes(&content).to_string(),
-    RunMode::Words => value = count_words(&content).to_string(),
-    RunMode::Lines => value = count_lines(&content).to_string(),
-    RunMode::Chars => value = count_chars(&content).to_string(),
+  let value: String = match run_mode {
+    RunMode::All => output_all(&content),
+    RunMode::Bytes => count_bytes(&content).to_string(),
+    RunMode::Words => count_words(&content).to_string(),
+    RunMode::Lines => count_lines(&content).to_string(),
+    RunMode::Chars => count_chars(&content).to_string(),
   }
 
   println!("{} {}", value, file_name.unwrap());
