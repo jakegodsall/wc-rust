@@ -35,8 +35,13 @@ fn main() -> Result<(), std::io::Error> {
     RunMode::Words => count_words(&content).to_string(),
     RunMode::Lines => count_lines(&content).to_string(),
     RunMode::Chars => count_chars(&content).to_string(),
-  }
+  };
 
-  println!("{} {}", value, file_name.unwrap());
+  match (run_mode, file_name.as_deref()) {
+    (RunMode::All, _) => println!("{}", value),
+    (_, Some(name)) => println!("{} {}", value, name),
+    (_, None) => println!("{}", value),
+  }
+  
   Ok(())
 }
